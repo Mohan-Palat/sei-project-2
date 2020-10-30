@@ -32,6 +32,11 @@
 - characteristics ("Cute","Intelligent","Large","Playful","Happy","Affectionate")
 - description (sentence describing the dog)
 - interested owners: this would be a number of people interested in adopting this particular dog
+- **might include a field to determine if the dog works well with Children and other pets**
 
-**might include a field to determine if the dog works well with Children and other pets**
+---
+## Wireframes
 
+To view my a rough draft of my website design click the following links:
+1. [Login Screen](https://github.com/angelinejacob/sei-project-2/blob/main/SEI-Project2-Wireframe%20-%20Login%20Screen.pdf)
+2. [Main Page](https://github.com/angelinejacob/sei-project-2/blob/main/SEI-Project2-MainScreen.pdf)
