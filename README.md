@@ -14,6 +14,8 @@
 ---
 ## Models
 ### User
+- username
+- password
 - Name
 - Location - user will have to enter their current location
 - Favorite Dogs - list of favorite dogs as selected by user, this will just store Mongo DB object Ids. I will be using referenced mongoose associations
@@ -29,6 +31,7 @@
 - house trained
 - characteristics ("Cute","Intelligent","Large","Playful","Happy","Affectionate")
 - description (sentence describing the dog)
+- interested owners: this would be a number of people interested in adopting this particular dog
 
 **might include a field to determine if the dog works well with Children and other pets**
 
