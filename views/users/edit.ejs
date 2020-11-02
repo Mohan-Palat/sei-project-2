@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Account Details</title>
+</head>
+<body>
+    <h2>Edit Account Details</h2>
+    <form action="/users/<%= user.id %>?_method=PUT" method="POST">
+        <label for="name">Name</label>
+        <input type="text" name="name" id="name" value="<%= user.name %>"> <br>
+        <label for="zipCode">Enter your ZipCode</label>
+        <input type="text" name="zipCode" id="zipCode" value="<%= user.zipCode %>"> <br>
+        <input type="submit" value="Update">
+    </form>
+</body>
+</html> 

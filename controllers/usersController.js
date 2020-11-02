@@ -30,7 +30,18 @@ router.get('/:id', (req, res) => {
 router.get('/:id/edit', (req, res) =>{
     let user_id = req.params.id
     User.findById(user_id, (error, foundUser) => {
-        
+        res.render('users/edit.ejs', {
+            user: foundUser,
+        })
+    })
+})
+
+// UPDATE
+router.put('/:id', (req, res) => {
+    console.log('line 41')
+    User.findByIdAndUpdate(req.params.id, req.body, (error, updatedUser) => {
+        if(error) res.send(error)
+        res.redirect(`/users/${updatedUser._id}/`)
     })
 })
 
@@ -38,7 +49,7 @@ router.get('/:id/edit', (req, res) =>{
 router.post('/', (req, res) => {
     req.body.password = bcrypt.hashSync(req.body.password, bcrypt.genSaltSync(10))
     User.create(req.body, (err, createdUser) => {
-        res.redirect(`/${createdUser._id}`)
+        res.redirect(`/users/${createdUser._id}/`)
     })
 })
 
