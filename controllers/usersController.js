@@ -62,4 +62,11 @@ router.post('/', (req, res) => {
     })
 })
 
+// DELETE ACCOUNT
+router.delete('/:id', (req, res) => {
+    User.findByIdAndRemove(req.params.id, (error, deletedUser) => {
+        res.redirect('/users/login')
+    })
+})
+
 module.exports = router
