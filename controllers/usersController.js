@@ -3,9 +3,32 @@ const bcrypt = require('bcrypt')
 const User = require('../models/user')
 const Dog = require('../models/dog')
 
-// USER LOGIN
+// USER LOGIN SCREEN
 router.get('/login',(req, res) => {
     res.render('users/login.ejs')
+})
+
+// USER LOGIN AUTH
+router.post('/login', (req, res) => {
+    // Look for username
+    User.findOne({username: req.body.username}, (error, foundUser) => {
+        // if there's an error
+        if(error){
+            res.send(error)
+        }
+        // if user not found 
+        else if(!foundUser){
+            res.send('<a  href="/users/login">Sorry, no user found </a>')
+        }
+        //compare entered password to db password
+        else {
+            if(bcrypt.compareSync(req.body.password, foundUser.password)){
+                res.redirect(`/users/${foundUser._id}/`)
+            } else {
+                res.send('<a href="/users/login"> password does not match </a>')
+            }
+        }  
+    })
 })
 
 // NEW USER
