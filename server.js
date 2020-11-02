@@ -37,6 +37,7 @@ db.on('disconnected', () => console.log('mongo disconnected'))
 // MIDDLEWARE
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended:true }))
+app.use(express.static('public'))
 
 // CONTROLLERS
 const userController = require('./controllers/usersController')
