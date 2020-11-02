@@ -38,6 +38,11 @@ db.on('disconnected', () => console.log('mongo disconnected'))
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended:true }))
 
+// CONTROLLERS
+const userController = require('./controllers/usersController')
+app.use('/users', userController)
+
+
 // API CALLOUT example
 // axios({
 //     method: 'get',
@@ -51,3 +56,7 @@ app.use(express.urlencoded({ extended:true }))
 // .catch((error) => {
 //     console.log('ERROR >>> ', error)
 // })
+
+app.listen(PORT, () => {
+    console.log("Hey! I'm listening for requests...")
+})

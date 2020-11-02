@@ -20,7 +20,9 @@
   "homepage": "https://github.com/angelinejacob/sei-project-2#readme",
   "dependencies": {
     "axios": "^0.21.0",
+    "bcrypt": "^5.0.0",
     "dotenv": "^8.2.0",
+    "ejs": "^3.1.5",
     "express": "^4.17.1",
     "method-override": "^3.0.0",
     "mongoose": "^5.10.11"
