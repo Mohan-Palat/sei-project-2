@@ -20,7 +20,7 @@
             <p>Primary Breed: <%= dogs[index].breeds.primary %></p>
             <h4><%= dogs[index].contact.address.city %>, <%= dogs[index].contact.address.state %> </h4>
 
-            <form action="/dogs/<%= dogs[index].id %>" method="POST">
+            <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>" method="POST">
                 <input type="submit" value="Add Dog to List">
             </form>
             <br>

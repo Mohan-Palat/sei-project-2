@@ -33,8 +33,9 @@ router.get('/:userId', (req, res) => {
 })
 
 // CREATE DOG
-router.post('/:animalId', (req, res) => {
+router.post('/:userId/:animalId', (req, res) => {
     let animalId = req.params.animalId
+    let userId = req.params.userId
     axios({
         method: 'get',
         headers: { Authorization: `Bearer ${token}` },
@@ -54,10 +55,20 @@ router.post('/:animalId', (req, res) => {
             size: dog.size,
             interestedOwners: 1,
         }
+        // create dog
         Dog.create(newDog, (error, createdDog) => {
             if(error) res.send(error)
             res.send(createdDog)
-        })
+
+            //Find user and add Dog
+            User.findById(userId, (error, foundUser) => {
+                foundUser.favoriteDogs.push(createdDog)
+                foundUser.save(function (error, savedUser) {
+                    if(error) console.log(error)
+                    console.log('Saved User', savedUser)
+                })
+            })
+        })    
     })
     .catch((error) => {
         console.log('ERROR >>> ', error)
