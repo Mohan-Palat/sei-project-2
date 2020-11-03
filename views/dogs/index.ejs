@@ -1,0 +1,10 @@
+<h1>Hello, <%= user.name %> </h1>
+<h3>Here are some dogs we found close by</h3>
+
+<h5>Searching Zipcode: <%= user.zipCode %> </h5>
+
+
+<% for( let index = 0; index < dogs.length; index++ ) { %>
+    <p><%= dogs[index].name %> <%= dogs[index].age %> <%= dogs[index].gender %></p> 
+    <h6><%= dogs[index].contact.address.city %>, <%= dogs[index].contact.address.state %> </h6><br>
+<% } %>

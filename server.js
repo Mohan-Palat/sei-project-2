@@ -42,6 +42,8 @@ app.use(express.static('public'))
 // CONTROLLERS
 const userController = require('./controllers/usersController')
 app.use('/users', userController)
+const dogController = require('./controllers/dogsControllers')
+app.use('/dogs', dogController)
 
 
 // API CALLOUT example
