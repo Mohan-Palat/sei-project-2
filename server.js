@@ -6,6 +6,7 @@ const express = require('express')
 const axios = require('axios')
 const methodOverride = require('method-override')
 const mongoose = require('mongoose')
+const expressLayouts = require('express-ejs-layouts')
 
 
 // CONFIGURATION
@@ -35,6 +36,8 @@ db.on('error', err => console.log(err.message + ' is mongod not running?'))
 db.on('disconnected', () => console.log('mongo disconnected'))
 
 // MIDDLEWARE
+app.set('view engine', 'ejs')
+app.use(expressLayouts)
 app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended:true }))
 app.use(express.static('public'))

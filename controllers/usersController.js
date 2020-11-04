@@ -55,7 +55,7 @@ router.get('/:id/view', (req, res) => {
 router.get('/:id', (req, res) => {
     User.findById(req.params.id, (error, foundUser) => {
         if(error) res.send(error)
-        res.render('main.ejs', {
+        res.render('partials/nav.ejs', {
             user: foundUser
         })
     })

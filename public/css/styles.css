@@ -1,6 +1,9 @@
 body {
+    width: 100%;
+    height: 100%;
     display: flex;
     flex-direction: column;
+    align-items: stretch;
 }
 header, footer, main, nav {
     border: 1px solid black;
@@ -9,10 +12,14 @@ header, footer {
     width: 100%;
     height: 75px;
 }
+header, main, footer {
+    flex-shrink: 0;
+}
 main {
     flex-grow: 1;
-    height: 450px;
+    /* height: max-content; */
     width: 100%;
+    /* overflow: overlay; */
 }
 nav {
     width: 100%;

@@ -1,40 +1,37 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/styles.css">
-    <title>Favorite Dogs</title>
-</head>
-<body>
-    <h2>Here are your favorite dogs</h2>
-    <% for( let index = 0; index < dogs.length; index++ ) { %>
-        <div id="dog-detail">
-            <div id="dog">
-                <p>Name: <%= dogs[index].name %></p>
-                <p>Age: <%= dogs[index].age %></p>
-                <p>Gender: <%= dogs[index].gender %></p>
-                <p>Primary Breed: <%= dogs[index].breed %></p>
-                <p>Size: <%= dogs[index].size %></p>
-                <p>Color: <%= dogs[index].color %></p>
-                <p>Interested Owners: <%= dogs[index].interestedOwners %></p>
-            </div>
+<nav>
+    <ul>
+        <li><a href="/dogs/<%= user.id %>/favoriteDogs">Your Favorite Dogs</a></li>
+        <li><a href="/dogs/<%= user.id %>">Search Puppies</a></li>
+        <li><a href="/users/<%= user.id %>/view">Your Account Details</a></li>
+        <li><a href="/users/login">Sign Out</a></li>
+    </ul>
+</nav>
+<h2>Here are your favorite dogs</h2>
+<% for( let index = 0; index < dogs.length; index++ ) { %>
+    <div id="dog-detail">
+        <div id="dog">
+            <p>Name: <%= dogs[index].name %></p>
+            <p>Age: <%= dogs[index].age %></p>
+            <p>Gender: <%= dogs[index].gender %></p>
+            <p>Primary Breed: <%= dogs[index].breed %></p>
+            <p>Size: <%= dogs[index].size %></p>
+            <p>Color: <%= dogs[index].color %></p>
+            <p>Interested Owners: <%= dogs[index].interestedOwners %></p>
+        </div>
 
-            <div id="contact-detail">
-                <p>Phone: <%= dogs[index].phone %></p>
-                <p>Email: <%= dogs[index].email %></p>
-                <p>Street: <%= dogs[index].street %></p>
-                <p>City: <%= dogs[index].city %></p>
-                <p>State: <%= dogs[index].state %></p>
-                <p>Postal Code: <%= dogs[index].postalcode %></p>
-                <p>Country: <%= dogs[index].country %></p>
-            </div>
-            <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>?_method=DELETE" method="POST">
-                <input type="submit" value="Remove Dog from List">
-            </form>
-            <br>
-        </div> 
+        <div id="contact-detail">
+            <p>Phone: <%= dogs[index].phone %></p>
+            <p>Email: <%= dogs[index].email %></p>
+            <p>Street: <%= dogs[index].street %></p>
+            <p>City: <%= dogs[index].city %></p>
+            <p>State: <%= dogs[index].state %></p>
+            <p>Postal Code: <%= dogs[index].postalcode %></p>
+            <p>Country: <%= dogs[index].country %></p>
+        </div>
+        <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>?_method=DELETE" method="POST">
+            <input type="submit" value="Remove Dog from List">
+        </form>
         <br>
-    <% } %>
-</body>
-</html>
+    </div> 
+    <br>
+<% } %>
