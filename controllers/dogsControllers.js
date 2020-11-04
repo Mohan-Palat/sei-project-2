@@ -96,7 +96,16 @@ router.post('/:userId/:animalId', (req, res) => {
                 if(error){
                     console.log('EXISTING DOG ERROR >>> ', error)
                 }
+
+                //update interested owners in foundDog
                 foundDog[0].interestedOwners++
+
+                //save found Dog
+                foundDog[0].save(function (error, savedDog) {
+                    if(error) res.send(error)
+                    console.log(savedDog)
+                })
+
                 foundUser.favoriteDogs.push(foundDog[0])
                 foundUser.save(function (error, savedUser) {
                     if(error) console.log(error)
