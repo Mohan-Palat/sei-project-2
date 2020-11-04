@@ -38,8 +38,13 @@ router.get('/new', (req, res) => {
 
 // USER SHOW PAGE
 router.get('/:id/view', (req, res) => {
-    User.findById(req.params.id, (error, foundUser) => {
-        if(error) res.send(error)
+    User.findById(req.params.id)
+    .populate('favoriteDogs')
+    .exec((error, foundUser) => {
+        console.log(foundUser)
+        if(error){
+            console.log('ERROR >>>> ', error)
+        }
         res.render('users/show.ejs', {
             user: foundUser
         })

@@ -96,6 +96,7 @@ router.post('/:userId/:animalId', (req, res) => {
                 if(error){
                     console.log('EXISTING DOG ERROR >>> ', error)
                 }
+                foundDog[0].interestedOwners++
                 foundUser.favoriteDogs.push(foundDog[0])
                 foundUser.save(function (error, savedUser) {
                     if(error) console.log(error)
@@ -105,9 +106,23 @@ router.post('/:userId/:animalId', (req, res) => {
             res.redirect(`/dogs/${userId}`)
         }
     })
+})
 
-    // Find Dog from API, add to the DB, then add as reference to the user
-    
+// VIEW FAVORITE DOGS
+router.get('/:userId/favoriteDogs', (req, res) => {
+    User.findById(req.params.userId)
+    .populate('favoriteDogs')
+    .exec((error, foundUser) => {
+        console.log(foundUser)
+        if(error){
+            console.log('ERROR >>>> ', error)
+        }
+        let dogs = foundUser.favoriteDogs
+        res.render('users/show.ejs', {
+            user: foundUser,
+            dogs: dogs,
+        })
+    })
 })
 
 
