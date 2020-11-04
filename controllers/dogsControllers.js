@@ -141,8 +141,50 @@ router.delete('/:userId/:animalId', (req, res) => {
             if(error) res.send(error)
             console.log(savedUser)
         })
+
+        // update interested owners account (need to subtract 1 since its being removed)
+        Dog.findById(animalId, (error, foundDog) => {
+            if(error) res.send(error)
+            foundDog.interestedOwners--
+
+            // save found Dog
+            foundDog.save(function(error, savedDog) {
+                if(error) res.send(error)
+                console.log(savedDog)
+            })
+        })
     })
     res.redirect(`/dogs/${userId}/favoriteDogs`)
+
+    // User.findById(userId)
+    // .populate('favoriteDogs')
+    // .exec((error, foundUser) => {
+    //     if(error) res.send(error)
+    //     // find the index of the dog you want to remove, and then remove from the array
+    //     let dogs = foundUser.favoriteDogs
+    //     let index = dogs.findIndex((element) => {
+    //         element._id = animalId
+    //     })
+    //     dogs.splice(index, 1)
+
+    //     // update interested owners account (need to subtract 1 since its being removed)
+    //     Dog.findById(animalId, (error, foundDog) => {
+    //         if(error) res.send(error)
+    //         foundDog.interestedOwners--
+
+    //         // save found Dog
+    //         foundDog.save(function(error, savedDog) {
+    //             if(error) res.send(error)
+    //             console.log(savedDog)
+    //         })
+    //     })
+
+    //     //save foundUser
+    //     foundUser.save(function (error, savedUser) {
+    //         if(error) res.send(error)
+    //         console.log(savedUser)
+    //     })
+    // })
 })
 
 module.exports = router
