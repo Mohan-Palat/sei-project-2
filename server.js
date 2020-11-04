@@ -46,15 +46,14 @@ const dogController = require('./controllers/dogsControllers')
 app.use('/dogs', dogController)
 
 
-// API CALLOUT example
+//API CALLOUT example
 // axios({
 //     method: 'get',
 //     headers: { Authorization: `Bearer ${token}` },
-//     url: 'https://api.petfinder.com/v2/animals?type=dog',
+//     url: 'https://api.petfinder.com/v2/types/dog/breeds',
 // })
 // .then(response => {
-//     console.log(response.data.animals[1])
-//     console.log(response.data.animals[1].contact)
+//     console.log(response.data.breeds[1])
 // })
 // .catch((error) => {
 //     console.log('ERROR >>> ', error)

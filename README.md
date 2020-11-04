@@ -9,8 +9,7 @@
 7. As a user, I should be able to keep a list of my favorite dogs
 8. As a user, I should be able to remove dogs from my list of favorites
 9. As a user, I should be able to view details of a specific dog, including contact details for a shelter
-10. As a user, I should be able to keep a track of my dog search
-11. As a user, I should be able to see how many other users are interested in a dog
+10. As a user, I should be able to see how many other users are interested in a dog
 ---
 ## Models
 ### User

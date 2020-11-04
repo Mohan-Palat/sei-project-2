@@ -35,6 +35,38 @@ router.get('/:userId', (req, res) => {
     })
 })
 
+router.get('/:userId/advancedSearch', (req, res) => {
+    // variables
+    let userId = req.params.userId
+    let gender = req.body.gender
+    let breed = req.body.breed
+    // console.log(req.body.gender)
+    // console.log(req.body.breed)
+
+    User.findById(userId, (error, foundUser) => {
+        console.log(foundUser)
+        if(error) res.send(error)
+        let zipCode = foundUser.zipCode
+        axios({
+            method: 'get',
+            headers: { Authorization: `Bearer ${token}` },
+            url: `https://api.petfinder.com/v2/animals?type=dog&location=${zipCode}&gender=${gender}&breed=${breed}`,
+        })
+        .then(response => {
+            console.log(response.data.animals[0])
+            // console.log(response.data.animals[1].contact)
+            // console.log(response.data.animals[1].photos[0])
+            res.render('dogs/index.ejs', {
+                user: foundUser,
+                dogs: response.data.animals,
+            })
+        })
+        .catch((error) => {
+            console.log('ERROR >>> ', error.response.data)
+        }) 
+    })
+})
+
 // CREATE DOG
 router.post('/:userId/:animalId', (req, res) => {
     let animalId = req.params.animalId

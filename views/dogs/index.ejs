@@ -12,13 +12,24 @@
 
     <h5>Searching Zipcode: <%= user.zipCode %> </h5>
 
+    <form action="/dogs/<%= user.id %>/advancedSearch?_method=GET" method="POST">
+        <label for="breed">Breed</label>
+        <input type="text" id="breed" name="breed">
+        <label for="size">Gender</label>
+        <input type="text" id="gender" name="gender">
+        <input type="submit" value="Search">
+    </form>
+
     <% for( let index = 0; index < dogs.length; index++ ) { %>
         <div id="dog-detail">
-            <p>Name: <%= dogs[index].name %></p>
-            <p>Age: <%= dogs[index].age %></p>
-            <p>Gender: <%= dogs[index].gender %></p>
-            <p>Primary Breed: <%= dogs[index].breeds.primary %></p>
-            <h4><%= dogs[index].contact.address.city %>, <%= dogs[index].contact.address.state %> </h4>
+            <div id="dog">
+                <p>Name: <%= dogs[index].name %></p>
+                <p>Age: <%= dogs[index].age %></p>
+                <p>Gender: <%= dogs[index].gender %></p>
+                <p>Primary Breed: <%= dogs[index].breeds.primary %></p>
+                <p>Secondary Breed: <%= dogs[index].breeds.secondary %></p>
+                <h4><%= dogs[index].contact.address.city %>, <%= dogs[index].contact.address.state %> </h4>
+            </div>
 
             <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>" method="POST">
                 <input type="submit" value="Add Dog to List">
