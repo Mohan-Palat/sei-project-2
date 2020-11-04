@@ -10,14 +10,25 @@
     <h2>Here are your favorite dogs</h2>
     <% for( let index = 0; index < dogs.length; index++ ) { %>
         <div id="dog-detail">
-            <p>Name: <%= dogs[index].name %></p>
-            <p>Age: <%= dogs[index].age %></p>
-            <p>Gender: <%= dogs[index].gender %></p>
-            <p>Primary Breed: <%= dogs[index].breed %></p>
-            <p>Size: <%= dogs[index].size %></p>
-            <p>Color: <%= dogs[index].color %></p>
-            <p>Interested Owners: <%= dogs[index].interestedOwners %></p>
+            <div id="dog">
+                <p>Name: <%= dogs[index].name %></p>
+                <p>Age: <%= dogs[index].age %></p>
+                <p>Gender: <%= dogs[index].gender %></p>
+                <p>Primary Breed: <%= dogs[index].breed %></p>
+                <p>Size: <%= dogs[index].size %></p>
+                <p>Color: <%= dogs[index].color %></p>
+                <p>Interested Owners: <%= dogs[index].interestedOwners %></p>
+            </div>
 
+            <div id="contact-detail">
+                <p>Phone: <%= dogs[index].phone %></p>
+                <p>Email: <%= dogs[index].email %></p>
+                <p>Street: <%= dogs[index].street %></p>
+                <p>City: <%= dogs[index].city %></p>
+                <p>State: <%= dogs[index].state %></p>
+                <p>Postal Code: <%= dogs[index].postalcode %></p>
+                <p>Country: <%= dogs[index].country %></p>
+            </div>
             <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>?_method=DELETE" method="POST">
                 <input type="submit" value="Remove Dog from List">
             </form>

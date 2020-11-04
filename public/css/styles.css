@@ -25,4 +25,11 @@ nav ul {
 }
 #dog-detail {
     border: 2px solid black;
+    display: flex;
+}
+#dog {
+    border: 2px solid hotpink;
+}
+#contact-detail {
+    border: 2px solid hotpink;
 }

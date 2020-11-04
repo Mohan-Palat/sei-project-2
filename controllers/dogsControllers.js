@@ -60,6 +60,7 @@ router.post('/:userId/:animalId', (req, res) => {
                 console.log('response received')
                 console.log(response.data.animal)
                 let dog = response.data.animal
+                let contact = dog.contact
                 let newDog = {
                     animalId: dog.id,
                     name: dog.name,
@@ -69,6 +70,13 @@ router.post('/:userId/:animalId', (req, res) => {
                     gender: dog.gender,
                     size: dog.size,
                     interestedOwners: 1,
+                    email: contact.email,
+                    phone: contact.phone,
+                    street: contact.address.address1,
+                    city: contact.address.city,
+                    state: contact.address.state,
+                    postcode: contact.address.postcode,
+                    country: contact.address.country,
                 }
                 // create dog
                 Dog.create(newDog, (error, createdDog) => {
