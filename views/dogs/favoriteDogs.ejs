@@ -3,9 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <title>Favorite Dogs</title>
 </head>
 <body>
-    
+    <h2>Here are your favorite dogs</h2>
+    <% for( let index = 0; index < dogs.length; index++ ) { %>
+        <div id="dog-detail">
+            <p>Name: <%= dogs[index].name %></p>
+            <p>Age: <%= dogs[index].age %></p>
+            <p>Gender: <%= dogs[index].gender %></p>
+            <p>Primary Breed: <%= dogs[index].breed %></p>
+            <p>Size: <%= dogs[index].size %></p>
+            <p>Color: <%= dogs[index].color %></p>
+            <p>Interested Owners: <%= dogs[index].interestedOwners %></p>
+
+            <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>?_method=DELETE" method="POST">
+                <input type="submit" value="Remove Dog from List">
+            </form>
+            <br>
+        </div> 
+        <br>
+    <% } %>
 </body>
 </html>

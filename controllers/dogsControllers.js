@@ -118,12 +118,31 @@ router.get('/:userId/favoriteDogs', (req, res) => {
             console.log('ERROR >>>> ', error)
         }
         let dogs = foundUser.favoriteDogs
-        res.render('users/show.ejs', {
+        res.render('dogs/favoriteDogs.ejs', {
             user: foundUser,
             dogs: dogs,
         })
     })
 })
 
+// DELETE FROM FAVORITE DOGS
+router.delete('/:userId/:animalId', (req, res) => {
+    //save req params in variables
+    let userId = req.params.userId
+    let animalId = req.params.animalId
+    User.findById(userId, (error, foundUser) => {
+        // find the index of the dog you want to remove, and then remove from the array
+        let dogs = foundUser.favoriteDogs
+        let index = dogs.indexOf(animalId)
+        dogs.splice(index,1)
+
+        //save foundUser
+        foundUser.save(function (error, savedUser) {
+            if(error) res.send(error)
+            console.log(savedUser)
+        })
+    })
+    res.redirect(`/dogs/${userId}/favoriteDogs`)
+})
 
 module.exports = router
