@@ -6,32 +6,37 @@
         <li class="nav-item"><a href="/users/login">Sign Out</a></li>
     </ul>
 </nav>
-<h2>Here are your favorite dogs</h2>
+<br>
 <% for( let index = 0; index < dogs.length; index++ ) { %>
-    <div id="dog-detail">
-        <div id="dog">
-            <p>Name: <%= dogs[index].name %></p>
-            <p>Age: <%= dogs[index].age %></p>
-            <p>Gender: <%= dogs[index].gender %></p>
-            <p>Primary Breed: <%= dogs[index].breed %></p>
-            <p>Size: <%= dogs[index].size %></p>
-            <p>Color: <%= dogs[index].color %></p>
-            <p>Interested Owners: <%= dogs[index].interestedOwners %></p>
+    <div class="card d-flex flex-column justify-content-center">
+        <div class="card-header">
+            <h3><%= dogs[index].name %></h3>
         </div>
-
-        <div id="contact-detail">
-            <p>Phone: <%= dogs[index].phone %></p>
-            <p>Email: <%= dogs[index].email %></p>
-            <p>Street: <%= dogs[index].street %></p>
-            <p>City: <%= dogs[index].city %></p>
-            <p>State: <%= dogs[index].state %></p>
-            <p>Postal Code: <%= dogs[index].postalcode %></p>
-            <p>Country: <%= dogs[index].country %></p>
+        <div class="row">
+            <div class="card-body">
+                <h5 class="card-title"> Dog Details</h5>
+                <p class="card-text"><strong>Age:</strong> <%= dogs[index].age %></p>
+                <p class="card-text"><strong>Gender:</strong> <%= dogs[index].gender %></p>
+                <p class="card-text"><strong>Primary Breed:</strong> <%= dogs[index].breed %></p>
+                <p class="card-text"><strong>Size:</strong> <%= dogs[index].size %></p>
+                <p class="card-text"><strong>Color:</strong> <%= dogs[index].color %></p>
+                <p class="card-text"><strong>Interested Owners:</strong> <%= dogs[index].interestedOwners %></p>
+            </div>
+            <div class="card-body">
+                <h5 class="card-title">Rescue Shelter Details</h5>
+                <p class="card-text"><strong>Phone:</strong> <%= dogs[index].phone %></p>
+                <p class="card-text"><strong>Email:</strong> <%= dogs[index].email %></p>
+                <p class="card-text"><strong>Street:</strong> <%= dogs[index].street %></p>
+                <p class="card-text"><strong>City:</strong> <%= dogs[index].city %></p>
+                <p class="card-text"><strong>State:</strong> <%= dogs[index].state %></p>
+                <p class="card-text"><strong>Postal Code:</strong> <%= dogs[index].postalcode %></p>
+                <p class="card-text"><strong>Country:</strong> <%= dogs[index].country %></p>
+            </div>
         </div>
         <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>?_method=DELETE" method="POST">
-            <input type="submit" value="Remove Dog from List">
+            <input type="submit" value="Remove Dog from List" class="btn btn-info">
         </form>
         <br>
-    </div> 
+    </div>
     <br>
 <% } %>
