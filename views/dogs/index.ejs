@@ -6,33 +6,41 @@
         <li class="nav-item"><a href="/users/login">Sign Out</a></li>
     </ul>
 </nav>
-<h1>Hello, <%= user.name %> </h1>
-<h3>Here are some dogs we found close by</h3>
 
-<h5>Searching Zipcode: <%= user.zipCode %> </h5>
+<h5>We've searched the postal code: <%= user.zipCode %> </h5>
 
 <form action="/dogs/<%= user.id %>/advancedSearch?_method=GET" method="POST">
-    <label for="breed">Breed</label>
-    <input type="text" id="breed" name="breed">
-    <label for="size">Gender</label>
-    <input type="text" id="gender" name="gender">
-    <input type="submit" value="Search">
+    <div class="form-group row">
+        <label for="breed">Breed</label>
+        <input class="form-control" type="text" id="breed" name="breed">
+    </div>
+    <div class="form-group row">
+        <label for="size">Gender</label>
+        <input class="form-control" type="text" id="gender" name="gender">
+    </div>
+    <div class="form-group row">
+        <input class="form-control btn btn-primary" type="submit" value="Search">
+    </div>
 </form>
 
 <% for( let index = 0; index < dogs.length; index++ ) { %>
-    <div id="dog-detail">
-        <div id="dog">
-            <p>Name: <%= dogs[index].name %></p>
-            <p>Age: <%= dogs[index].age %></p>
-            <p>Gender: <%= dogs[index].gender %></p>
-            <p>Primary Breed: <%= dogs[index].breeds.primary %></p>
-            <p>Secondary Breed: <%= dogs[index].breeds.secondary %></p>
-            <h4><%= dogs[index].contact.address.city %>, <%= dogs[index].contact.address.state %> </h4>
+    <div class="card" style="width: 25rem;">
+        <div class="card-header">
+            <h3><%= dogs[index].name %> <h6><%= dogs[index].contact.address.city %>, <%= dogs[index].contact.address.state %> </h6></h3>
         </div>
-
-        <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>" method="POST">
-            <input type="submit" value="Add Dog to List">
-        </form>
+        <div class="d-flex flex-column align-items-center">
+            <div class="card-body">
+                <h4 class="card-title"> Dog Details</h4>
+                <p class="card-text">Age: <%= dogs[index].age %></p>
+                <p class="card-text">Gender: <%= dogs[index].gender %></p>
+                <p class="card-text">Primary Breed: <%= dogs[index].breeds.primary %></p>
+                <p class="card-text">Secondary Breed: <%= dogs[index].breeds.secondary %></p>
+            </div>
+    
+            <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>" method="POST">
+                <input class="btn btn-primary" type="submit" value="Add Dog to List">
+            </form>
+        </div>
         <br>
     </div> 
     <br>
