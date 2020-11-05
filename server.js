@@ -42,11 +42,18 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended:true }))
 app.use(express.static('public'))
 
+// MAIN ROUTE
+app.get('/', (req, res) => {
+    res.render('users/login')
+})
+
 // CONTROLLERS
 const userController = require('./controllers/usersController')
 app.use('/users', userController)
 const dogController = require('./controllers/dogsControllers')
 app.use('/dogs', dogController)
+
+
 
 
 //API CALLOUT example
