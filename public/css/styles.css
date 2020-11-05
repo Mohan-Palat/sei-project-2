@@ -8,18 +8,24 @@ body {
 header, footer, main, nav {
     border: 1px solid black;
 }
+
 header, footer {
     width: 100%;
     height: 75px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 header, main, footer {
     flex-shrink: 0;
 }
 main {
     flex-grow: 1;
-    /* height: max-content; */
     width: 100%;
-    /* overflow: overlay; */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 nav {
     width: 100%;
