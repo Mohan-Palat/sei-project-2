@@ -13,8 +13,8 @@ const expressLayouts = require('express-ejs-layouts')
 const app = express()
 const token = process.env.TOKEN
 const db = mongoose.connection
-const PORT = process.env.PORT
-const mongodbURI = process.env.MONGODBURI
+const PORT = process.env.PORT || 3000
+const mongodbURI = process.env.MONGODBURI || 'mongodb://localhost:27017/'+ 'adopt_a_dog';
 
 // DATABASE
 mongoose.connect(
