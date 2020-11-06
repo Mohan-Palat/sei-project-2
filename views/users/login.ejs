@@ -1,16 +1,21 @@
+<!-- form to login to application -->
 <h2>Login</h2>
 <form action="/users/login" method="POST">
+    <!-- username section -->
     <div class="form-group">
         <label for="username">Username: </label>
         <input class="form-control" type="text" name="username" id="username">
     </div>
+    <!-- password section -->
     <div class="form-group">
         <label for="pwd">Password: </label>
         <input class="form-control" type="password" name="password" id="pwd">
     </div>
+    <!-- login button -->
     <div class="form-group">
         <input type="submit" value="Login" class="btn btn-primary form-control">
     </div>
 </form>
 <p>or</p>
+<!-- if user does not have an account, they can sign up clicking below link -->
 <a href="/users/new">Sign Up</a>

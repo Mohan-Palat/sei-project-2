@@ -1,3 +1,4 @@
+<!-- NAV BAR -->
 <nav>
     <ul class="nav nav-pills justify-content-space-evenly">
         <li class="nav-item"><a href="/dogs/<%= user.id %>/favoriteDogs">Your Favorite Dogs</a></li>
@@ -8,7 +9,7 @@
 </nav>
 
 <h5>We've searched the postal code: <%= user.zipCode %> </h5>
-
+<!-- advanced search section -->
 <form action="/dogs/<%= user.id %>/advancedSearch?_method=GET" method="POST">
     <div class="form-group row">
         <label for="breed">Breed</label>
@@ -23,6 +24,7 @@
     </div>
 </form>
 
+<!-- card for each dog loaded from API -->
 <% for( let index = 0; index < dogs.length; index++ ) { %>
     <div class="card" style="width: 25rem;">
         <div class="card-header">

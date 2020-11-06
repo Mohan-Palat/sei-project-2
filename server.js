@@ -1,5 +1,3 @@
-console.log("Node connected!")
-
 // DEPENDENCIES
 require('dotenv').config()
 const express = require('express')
@@ -13,6 +11,7 @@ const expressLayouts = require('express-ejs-layouts')
 const app = express()
 const token = process.env.TOKEN
 const db = mongoose.connection
+// configured like this, for deployment
 const PORT = process.env.PORT || 3000
 const mongodbURI = process.env.MONGODBURI || 'mongodb://localhost:27017/'+ 'adopt_a_dog';
 
@@ -42,7 +41,8 @@ app.use(methodOverride('_method'))
 app.use(express.urlencoded({ extended:true }))
 app.use(express.static('public'))
 
-// MAIN ROUTE
+// MAIN ROUTE 
+// - when entering application on https://<hostname>/ I should be lead directly to the login page
 app.get('/', (req, res) => {
     res.render('users/login')
 })
@@ -53,22 +53,7 @@ app.use('/users', userController)
 const dogController = require('./controllers/dogsControllers')
 app.use('/dogs', dogController)
 
-
-
-
-//API CALLOUT example
-// axios({
-//     method: 'get',
-//     headers: { Authorization: `Bearer ${token}` },
-//     url: 'https://api.petfinder.com/v2/types/dog/breeds',
-// })
-// .then(response => {
-//     console.log(response.data.breeds[1])
-// })
-// .catch((error) => {
-//     console.log('ERROR >>> ', error)
-// })
-
+// APP LISTEN ON PORT
 app.listen(PORT, () => {
     console.log("Hey! I'm listening for requests...")
 })

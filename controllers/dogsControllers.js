@@ -11,17 +11,17 @@ const token = process.env.TOKEN
 // INDEX ROUTE - SHOW ALL DOGS
 router.get('/:userId', (req, res) => {
     User.findById(req.params.userId, (error, foundUser) => {
+        // Find user in DB to get zipcode & to pass user info to index page
         let zipCode = foundUser.zipCode
-        console.log(typeof(zipCode))
+        
+        // Call API to get information on nearby dogs
         axios({
             method: 'get',
             headers: { Authorization: `Bearer ${token}` },
             url: `https://api.petfinder.com/v2/animals?type=dog&location=${zipCode}`,
         })
         .then(response => {
-            console.log(response.data.animals[1])
-            // console.log(response.data.animals[1].contact)
-            // console.log(response.data.animals[1].photos[0])
+            // if you get successful response, render dog index page
             res.render('dogs/index.ejs', {
                 user: foundUser,
                 dogs: response.data.animals,
@@ -29,33 +29,30 @@ router.get('/:userId', (req, res) => {
         })
         .catch((error) => {
             console.log('ERROR >>> ', error.response.data)
-            console.log(typeof(zipCode))
-            console.log(zipCode)
         }) 
     })
 })
 
 router.get('/:userId/advancedSearch', (req, res) => {
-    // variables
+    // variables from request, used to search the api for specific breed/gender
     let userId = req.params.userId
     let gender = req.body.gender
     let breed = req.body.breed
-    // console.log(req.body.gender)
-    // console.log(req.body.breed)
 
     User.findById(userId, (error, foundUser) => {
-        console.log(foundUser)
         if(error) res.send(error)
+
+        //find user to get zipcode
         let zipCode = foundUser.zipCode
+
+        //call api and filter by zipcode, gender, and breed
         axios({
             method: 'get',
             headers: { Authorization: `Bearer ${token}` },
             url: `https://api.petfinder.com/v2/animals?type=dog&location=${zipCode}&gender=${gender}&breed=${breed}`,
         })
         .then(response => {
-            console.log(response.data.animals[0])
-            // console.log(response.data.animals[1].contact)
-            // console.log(response.data.animals[1].photos[0])
+            // if response is okay, render index page with dogs that match criteria
             res.render('dogs/index.ejs', {
                 user: foundUser,
                 dogs: response.data.animals,
@@ -69,28 +66,24 @@ router.get('/:userId/advancedSearch', (req, res) => {
 
 // CREATE DOG
 router.post('/:userId/:animalId', (req, res) => {
+    // get dog object id and user id from request
     let animalId = req.params.animalId
     let userId = req.params.userId
-    //let foundUser = await User.findById(userId)
 
     // Check if Animal Id is already in Database
     Dog.find({animalId: animalId}, (error, foundDog) => {
-        console.log(foundDog)
         if(error) {
-            console.log('Error!', error)
             res.send(error)
         }
         //If the dog is not in the DB, find it in the api, add it to the DB and update the user object
         else if(!foundDog.length){
-            console.log('api about to be called')
             axios({
                 method: 'get',
                 headers: { Authorization: `Bearer ${token}` },
                 url: `https://api.petfinder.com/v2/animals/${animalId}`,
             })
             .then(response => {
-                console.log('response received')
-                console.log(response.data.animal)
+                // create Dog object
                 let dog = response.data.animal
                 let contact = dog.contact
                 let newDog = {
@@ -110,19 +103,19 @@ router.post('/:userId/:animalId', (req, res) => {
                     postcode: contact.address.postcode,
                     country: contact.address.country,
                 }
-                // create dog
+                // insert created objected into DB
                 Dog.create(newDog, (error, createdDog) => {
                     if(error) res.send(error)
         
-                    //Find user and add Dog
+                    //Find user and add Dog & save user
                     User.findById(userId, (error, foundUser) => {
                         foundUser.favoriteDogs.push(createdDog)
                         foundUser.save(function (error, savedUser) {
                             if(error) console.log(error)
-                            console.log('Saved User', savedUser)
                         })
                     })
                 })
+                // redirect to index page
                 res.redirect(`/dogs/${userId}`)
             })
             .catch((error) => {
@@ -131,7 +124,6 @@ router.post('/:userId/:animalId', (req, res) => {
         }
         //If Dog is found in DB, add it as a reference to User Object
         else{
-            console.log('in uncoded function')
             User.findById(userId, (error, foundUser) => {
                 if(error){
                     console.log('EXISTING DOG ERROR >>> ', error)
@@ -143,15 +135,15 @@ router.post('/:userId/:animalId', (req, res) => {
                 //save found Dog
                 foundDog[0].save(function (error, savedDog) {
                     if(error) res.send(error)
-                    console.log(savedDog)
                 })
-
+                
+                //add dog to user and save user record
                 foundUser.favoriteDogs.push(foundDog[0])
                 foundUser.save(function (error, savedUser) {
                     if(error) console.log(error)
-                    console.log('Saved User', savedUser)
                 })
             })
+            //redirect to index
             res.redirect(`/dogs/${userId}`)
         }
     })
@@ -159,13 +151,15 @@ router.post('/:userId/:animalId', (req, res) => {
 
 // VIEW FAVORITE DOGS
 router.get('/:userId/favoriteDogs', (req, res) => {
+    // in order to get specific information about the dogs from a user document, use populate
     User.findById(req.params.userId)
     .populate('favoriteDogs')
     .exec((error, foundUser) => {
-        console.log(foundUser)
         if(error){
             console.log('ERROR >>>> ', error)
         }
+
+        // render favorite Dogs page & pass it the dogs from the populate() query
         let dogs = foundUser.favoriteDogs
         res.render('dogs/favoriteDogs.ejs', {
             user: foundUser,
@@ -179,18 +173,20 @@ router.delete('/:userId/:animalId', (req, res) => {
     //save req params in variables
     let userId = req.params.userId
     let animalId = req.params.animalId
+
+    // find user in DB
     User.findById(userId, (error, foundUser) => {
         // find the index of the dog you want to remove, and then remove from the array
-        let dogs = foundUser.favoriteDogs
-        let index = dogs.indexOf(animalId)
-        dogs.splice(index,1)
+        let dogs = foundUser.favoriteDogs           // Dogs array
+        let index = dogs.indexOf(animalId)          // Find index of dog you want to remove
+        dogs.splice(index,1)                        // Use splice to remove element at that index
 
         //save foundUser
         foundUser.save(function (error, savedUser) {
             if(error) res.send(error)
-            console.log(savedUser)
         })
 
+        // find dog in DB in order to: 
         // update interested owners account (need to subtract 1 since its being removed)
         Dog.findById(animalId, (error, foundDog) => {
             if(error) res.send(error)
@@ -199,41 +195,13 @@ router.delete('/:userId/:animalId', (req, res) => {
             // save found Dog
             foundDog.save(function(error, savedDog) {
                 if(error) res.send(error)
-                console.log(savedDog)
             })
         })
     })
+
+    // redirect to favorite Dogs page
     res.redirect(`/dogs/${userId}/favoriteDogs`)
 
-    // User.findById(userId)
-    // .populate('favoriteDogs')
-    // .exec((error, foundUser) => {
-    //     if(error) res.send(error)
-    //     // find the index of the dog you want to remove, and then remove from the array
-    //     let dogs = foundUser.favoriteDogs
-    //     let index = dogs.findIndex((element) => {
-    //         element._id = animalId
-    //     })
-    //     dogs.splice(index, 1)
-
-    //     // update interested owners account (need to subtract 1 since its being removed)
-    //     Dog.findById(animalId, (error, foundDog) => {
-    //         if(error) res.send(error)
-    //         foundDog.interestedOwners--
-
-    //         // save found Dog
-    //         foundDog.save(function(error, savedDog) {
-    //             if(error) res.send(error)
-    //             console.log(savedDog)
-    //         })
-    //     })
-
-    //     //save foundUser
-    //     foundUser.save(function (error, savedUser) {
-    //         if(error) res.send(error)
-    //         console.log(savedUser)
-    //     })
-    // })
 })
 
 module.exports = router

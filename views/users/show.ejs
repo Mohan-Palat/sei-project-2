@@ -1,3 +1,4 @@
+<!-- NAV BAR -->
 <nav>
     <ul class="nav nav-pills justify-content-space-evenly">
         <li class="nav-item"><a href="/dogs/<%= user.id %>/favoriteDogs">Your Favorite Dogs</a></li>
@@ -7,16 +8,19 @@
     </ul>
 </nav>
 <br>
+<!-- account details section -->
 <h4>Account Details</h4>
 <br>
 <div id="account-details">
     <div class="container">   
         <div class="row">
+            <!-- shows name, zipcode, and username data -->
             <div class="col">
                 <p><strong>Name:</strong> <%= user.name %> </p>
                 <p><strong>ZipCode:</strong> <%= user.zipCode %> </p>
                 <p><strong>Username:</strong> <%= user.username %> </p>
             </div>
+            <!-- shows list of favorite dogs -->
             <div class="col">
                 <p><strong>Favored Dogs</strong></p>
                 <ul>
@@ -26,8 +30,10 @@
                 </ul>
             </div>
         </div>
+        <!-- this line keeps both rows aligned -->
         <div class="w-100"></div>
         <br>
+        <!-- buttons to edit & delete account -->
         <div class="row">
             <div class="col">
                 <a href="/users/<%= user.id %>/edit" class="btn btn-secondary"> Edit My Details</a>

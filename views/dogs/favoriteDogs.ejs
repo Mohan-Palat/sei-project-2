@@ -1,3 +1,4 @@
+<!-- NAV BAR -->
 <nav>
     <ul class="nav nav-pills justify-content-space-evenly">
         <li class="nav-item"><a href="/dogs/<%= user.id %>/favoriteDogs">Your Favorite Dogs</a></li>
@@ -7,12 +8,14 @@
     </ul>
 </nav>
 <br>
+<!-- for every favorite dog, create a card -->
 <% for( let index = 0; index < dogs.length; index++ ) { %>
     <div class="card d-flex flex-column justify-content-center">
         <div class="card-header">
             <h3><%= dogs[index].name %></h3>
         </div>
         <div class="row">
+            <!-- Dog Details -->
             <div class="card-body">
                 <h5 class="card-title"> Dog Details</h5>
                 <p class="card-text"><strong>Age:</strong> <%= dogs[index].age %></p>
@@ -22,6 +25,7 @@
                 <p class="card-text"><strong>Color:</strong> <%= dogs[index].color %></p>
                 <p class="card-text"><strong>Interested Owners:</strong> <%= dogs[index].interestedOwners %></p>
             </div>
+            <!-- Rescue Shelter Details -->
             <div class="card-body">
                 <h5 class="card-title">Rescue Shelter Details</h5>
                 <p class="card-text"><strong>Phone:</strong> <%= dogs[index].phone %></p>
@@ -33,6 +37,7 @@
                 <p class="card-text"><strong>Country:</strong> <%= dogs[index].country %></p>
             </div>
         </div>
+        <!-- Delete button, to remove dog from favorites list -->
         <form action="/dogs/<%= user.id %>/<%= dogs[index].id %>?_method=DELETE" method="POST">
             <input type="submit" value="Remove Dog from List" class="btn btn-info">
         </form>

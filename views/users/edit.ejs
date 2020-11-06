@@ -1,3 +1,4 @@
+<!-- NAV BAR -->
 <nav>
     <ul class="nav nav-pills justify-content-space-evenly">
         <li class="nav-item"><a href="/dogs/<%= user.id %>/favoriteDogs">Your Favorite Dogs</a></li>
@@ -7,17 +8,21 @@
     </ul>
 </nav>
 <br>
+<!-- edit account details section -->
 <h4>Edit Account Details</h4>
 <br>
 <form action="/users/<%= user.id %>?_method=PUT" method="POST">
+    <!-- name section -->
     <div class="form-group">
         <label for="name">Name</label>
         <input class="form-control" type="text" name="name" id="name" value="<%= user.name %>">
     </div>
+    <!-- zipcode section -->
     <div class="form-group">
         <label for="zipCode">Enter your ZipCode</label>
         <input class="form-control" type="text" name="zipCode" id="zipCode" value="<%= user.zipCode %>">
     </div>
+    <!-- submit button -->
     <div class="form-group">
         <input class="form-control btn btn-success" type="submit" value="Update">
     </div>
